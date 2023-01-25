@@ -112,6 +112,23 @@ LIMIT 1;
 ```
 Answer: Long Island City/Queens Plaza
 
-##Terraform
+## Terraform
 
-See [here](https://github.com/larsskaret/DataTalksClub_Data-Engineering/tree/main/homework_week1/Terraform_homework) for output from terraform apply, and main and variables file
+In this homework we'll prepare the environment by creating resources in GCP with Terraform.
+
+In your VM on GCP install Terraform. Copy the files from the course repo here to your VM.
+
+Modify the files as necessary to create a GCP Bucket and Big Query Dataset.
+
+## Question 1. Creating Resources
+
+After updating the main.tf and variable.tf files run:
+
+```terraform apply```
+
+Paste the output of this command into the homework submission form.
+
+
+Answer:
+
+See [here](https://github.com/larsskaret/DataTalksClub_Data-Engineering/tree/main/homework_week1/Terraform_homework) for main.tf, variables.tf and output from `terraform apply`.
