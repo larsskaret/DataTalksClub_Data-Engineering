@@ -42,9 +42,11 @@ I decided to use:
 
 1. Download (wget) and explore (jupyter) the data. Check datatypes, especially datetime.
 
-2. Check row count and divide into chunks if needed. Insert data into database, see green_zone_upload_data.ipynb
+2. Run `docker compose up -d`. Notice I use port 5431 since I have PostgreSQL on local computer.
 
-3. Log into pgAdmin http://localhost:8080/ u: `admin@admin.com` pw: root and verify data is inserted correctly.
+3. Check row count and divide into chunks if needed. Insert data into database, see green_zone_upload_data.ipynb
+
+4. Log into pgAdmin http://localhost:8080/ u: `admin@admin.com` pw: root and verify data is inserted correctly.
 
 #Note: All SQL commands are gathered in the file week1.sql
 
