@@ -37,18 +37,18 @@ Download this data and put it into Postgres (with jupyter notebooks or with a pi
 ---
 
 I decided to use: 
-- The docker compose from the course material to create a PostgreSQL and pgAdmin containter.
+- The [docker compose](https://github.com/larsskaret/DataTalksClub_Data-Engineering/blob/main/homework_week1/docker-compose.yaml) file from the course material to create a PostgreSQL and pgAdmin containter.
 - jupyter notebook. Since this will be done only once - no need for script. And jupyer is nice to explore the data.
 
 1. Download (wget) and explore (jupyter) the data. Check datatypes, especially datetime.
 
 2. Run `docker compose up -d`. Notice I use port 5431 since I have PostgreSQL on local computer.
 
-3. Check row count and divide into chunks if needed. Insert data into database, see green_zone_upload_data.ipynb
+3. Check row count and divide into chunks if needed. Insert data into database, see [green_zone_upload_data.ipynb](https://github.com/larsskaret/DataTalksClub_Data-Engineering/blob/main/homework_week1/green_zone_upload_data.ipynb)
 
 4. Log into pgAdmin http://localhost:8080/ u: `admin@admin.com` pw: root and verify data is inserted correctly.
 
-#Note: All SQL commands are gathered in the file week1.sql
+#Note: All SQL commands are gathered in the file [homework_week1.sql](https://github.com/larsskaret/DataTalksClub_Data-Engineering/blob/main/homework_week1/homework_week1.sql)
 
 ## Question 3. Count records  
     
@@ -110,4 +110,8 @@ WHERE zpu."Zone" = 'Astoria'
 ORDER BY gtt."tip_amount" DESC
 LIMIT 1;
 ```
-Answer: Long Island City/Queens Plaza  
+Answer: Long Island City/Queens Plaza
+
+##Terraform
+
+See [here](https://github.com/larsskaret/DataTalksClub_Data-Engineering/tree/main/homework_week1/Terraform_homework) for output from terraform apply, and main and variables file
