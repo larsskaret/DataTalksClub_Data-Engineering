@@ -44,7 +44,7 @@ def write_gcs(path: Path) -> None:
 
 
 @flow()
-def q1_etl_web_to_gcs_green() -> None:
+def q4_etl_web_to_gcs_green() -> None:
     """The main ETL function"""
     #Hardcoded for now
     color = "green"
@@ -60,4 +60,4 @@ def q1_etl_web_to_gcs_green() -> None:
 
 
 if __name__ == "__main__":
-    q1_etl_web_to_gcs_green()
+    q4_etl_web_to_gcs_green()

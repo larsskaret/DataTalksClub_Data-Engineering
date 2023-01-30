@@ -116,10 +116,10 @@ How many rows were processed by the script?
 
 1. Code for creating a GitHub storage block is located in `q4_create_git_block.py`
 
-2. Copy `q1_etl_web_to_gcs_green.py` (part of solution to question 1) as `q4_etl_web_to_gcs_green.py`. Changed hard-coded parameters.
+2. Copy `q1_etl_web_to_gcs_green.py` (part of solution to question 1) as `q4_etl_web_to_gcs_green.py`. Changed hard-coded parameters and flow name.
 
 3. Push my code to github.
 
-4. Copy `docker_deploy.py` from course matierial as `q4_github_deploy.py`
+4. Copy `docker_deploy.py` from course matierial as `q4_github_deploy.py`. Modify it accordingly and run it. (We make a prefect deployment in python instead of the command line.)
 
 
