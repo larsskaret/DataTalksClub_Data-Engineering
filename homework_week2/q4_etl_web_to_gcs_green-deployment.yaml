@@ -1,0 +1,48 @@
+###
+### A complete description of a Prefect Deployment for flow 'q4-etl-web-to-gcs-green'
+###
+name: q4
+description: The main ETL function
+version: 9b09a306aee77d4ef167383dddc40d4d
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule: null
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: q4-etl-web-to-gcs-green
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: 07f7c196-cf9d-4740-adba-56d71db83fee
+  _block_document_name: anonymous-ba1b1af8-79c7-4d22-85f0-1c775d5d9039
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage:
+  repository: https://github.com/larsskaret/DataTalksClub_Data-Engineering.git
+  reference: null
+  access_token: null
+  _block_document_id: f436ec96-3f41-416e-ab36-a03102006844
+  _block_document_name: question-4
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path:
+entrypoint: q4_etl_web_to_gcs_green.py:q4_etl_web_to_gcs_green
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
