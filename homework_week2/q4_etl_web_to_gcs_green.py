@@ -31,23 +31,13 @@ def clean(df=pd.DataFrame) -> pd.DataFrame:
 @task(log_prints=True)
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f"data/{color}/{dataset_file}.parquet")#.parent.joinpath(f"data/{color}/{dataset_file}.parquet")
-    # Get the path of current working directory
-    path2 = os.getcwd()
-    print("Files and directories in '", path2, "' :") 
-    for root,d_names,f_names in os.walk(path2):
-        print(root, d_names, f_names)
+    path = Path(f"data/{color}")
+    #Quick fix, since it complains about missing path when run in temp,
+    # after being fetched from github
+    if not os.path.exists(path):
+        os.makedirs(path)
 
-    # Get the list of all files and directories
-    # in current working directory
-    # dir_list = os.listdir(path2)
-
-  
-    
-    # print the list
-    #print(dir_list)
-    
-    print(path)
+    path = Path(f"data/{color}/{dataset_file}.parquet")
     df.to_parquet(path, compression="gzip")
     return path
 

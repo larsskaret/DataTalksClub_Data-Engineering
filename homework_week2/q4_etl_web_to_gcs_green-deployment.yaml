@@ -6,9 +6,11 @@ description: The main ETL function
 version: 9b09a306aee77d4ef167383dddc40d4d
 # The work queue that will handle this deployment's runs
 work_queue_name: default
+work_pool_name: null
 tags: []
 parameters: {}
 schedule: null
+is_schedule_active: true
 infra_overrides: {}
 
 ###
@@ -33,16 +35,18 @@ storage:
   repository: https://github.com/larsskaret/DataTalksClub_Data-Engineering.git
   reference: null
   access_token: null
+  include_git_objects: true
   _block_document_id: f436ec96-3f41-416e-ab36-a03102006844
   _block_document_name: question-4
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path:
-entrypoint: q4_etl_web_to_gcs_green.py:q4_etl_web_to_gcs_green
+path: ''
+entrypoint: homework_week2/q4_etl_web_to_gcs_green.py:q4_etl_web_to_gcs_green
 parameter_openapi_schema:
   title: Parameters
   type: object
   properties: {}
   required: null
   definitions: null
+timestamp: '2023-01-31T17:53:12.891557+00:00'
