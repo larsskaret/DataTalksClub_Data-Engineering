@@ -4,15 +4,19 @@
 
 2. Activate conda `zoom` environment that I used when following prefect videos. `conda activate zoom`. It was created with `conda create -n zoom python=3.9`
 
-3. In a separate terminal, activate conda `zoom` environment that I used when following prefect videos: `conda activate zoom`. The start the Prefect Orion server: `prefect orion start`. 
+3. In a separate terminal, activate conda `zoom` environment Then start the Prefect Orion server: `prefect orion start`. (Assuming prefect is installed `pip install -U prefect`)
 
 4. Create GCP credential block, copy paste the content of json key which has been made earlier in the Google Cloud UI. Name it `ny-rides-gcpcred-bucket`
 
-5. Create GCS bucket block that points to my ny rides bucket. Name it `ny-rides-bucket-block`. Point GCP Credentials to `ny-rides-gcpcred-bucket`.
+5. Create GCS bucket block that points to my ny rides bucket. Name it `ny-rides-bucket-block`. Point GCP Credentials to `ny-rides-gcpcred-bucket`. 
 
-Note: as the questions don't build on each other, I have named the files associated with each question with a corresponding number.
+---
 
-Note 2: I have listed the steps I have taken to find the answer. They are neither exhaustive nor consistent (in their level of detail).
+Note: as the questions don't build on each other, I have named the files associated with each question with a corresponding number. I have also decided to use the hard coded paramaeters 
+
+Note 2: I have listed the steps I have taken to find the answers. They are neither exhaustive nor consistent (in their level of detail).
+
+---
 
 ## Question 1. Load January 2020 data
 
@@ -31,6 +35,8 @@ How many rows does that dataset have?
 ### Answer
 447770
 
+---
+
 ## Question 2. Scheduling with Cron
 
 Cron is a common scheduling specification for workflows.
@@ -41,17 +47,17 @@ Using the flow in `etl_web_to_gcs.py`, create a deployment to run on the first o
 
 1. Copy the `etl_web_to_gcs.py` as `q2_etl_web_to_gcs.py`. Change bucket name to `ny-rides-bucket-block` in case I need to run the file.
 
-2. Deployments can be created using the CLI or using a python script. The scheduling can be configured using the CLI or the UI. I decided for using CLI in both cases since it is a simple deployment I want to create. `prefect deployment build ./q2_etl_web_to_gcs.py:q2_etl_web_to_gcs -n q2 --cron "0 5 1 * *" -a"`. 
+2. Deployments can be created using the CLI or using a python script. The scheduling can be configured using the CLI or the UI. I decided for using CLI in both cases since it is a simple deployment I want to create. `prefect deployment build ./q2_etl_web_to_gcs.py:q2_etl_web_to_gcs -n q2 --cron "0 5 1 * *" -a"`. The -a makes prefect apply the deployment after building it.
 
-3. This creates a yaml-file with which we can apply `prefect deployment apply q2_etl_web_to_gcs-deployment.yaml`. 
+3. We can then check if the cron settings are correct in the UI.
 
-4. We can then check if the cron settings are correct in the UI.
-
-![](image.png)
+![](https://github.com/larsskaret/DataTalksClub_Data-Engineering/blob/main/homework_week2/image/q2_cron.png)
 
 ### Answer
 
-`0 5 1 * *` schedules for first of every month at 5am UTC (not pm). If it is indeed pm then `0 17 1 * *` should be used.
+`0 5 1 * *` schedules for first of every month at 5am UTC.
+
+---
 
 ## Question 3. Loading data to BigQuery 
 
@@ -102,6 +108,8 @@ Make sure you have the parquet data files for Yellow taxi data for Feb. 2019 and
 
 14851920
 
+---
+
 ## Question 4. Github Storage Block
 
 Using the `web_to_gcs` script from the videos as a guide, you want to store your flow code in a GitHub repository for collaboration with your team. Prefect can look in the GitHub repo to find your flow code and read it. Create a GitHub storage block from the UI or in Python code and use that in your Deployment instead of storing your flow code locally or baking your flow code into a Docker image. 
@@ -128,6 +136,8 @@ How many rows were processed by the script?
 
 88605
 
+---
+
 ## Question 5. Email or Slack notifications
 
 It’s often helpful to be notified when something with your dataflow doesn’t work as planned. Choose one of the options below for creating email or slack notifications.
@@ -148,12 +158,33 @@ Test the functionality.
 
 Alternatively, you can grab the webhook URL from your own Slack workspace and Slack App that you create. 
 
+---
+
 ### Steps
 
-1. Create Prefect Cloud account. Create workspace `q5`. Create same blocks as on local Orion server: Github, GCP credentials and GCS bucket (I could not find thisn in the UI so I created it with script). In addition, create email block.
+1. Create Prefect Cloud account. Log in using web browser. Create workspace `q5`. Create the same blocks as on local Orion server: Github (new name `question-5`), GCP credentials and GCS bucket. I could not find GCS bucket in the UI so I created it with script `q5_create_gcp_bucket_block.py`. In addition, create email block.
 
-2. Log in with `prefect cloud login`
+2. Log in with `prefect cloud login`. Run script to create GCS bucket.
 
 3. Copy `q4_etl_web_to_gcs_green.py` as `q5_etl_web_to_gcs_green.py`. Change hard-coded parameters and flow name.
 
-4. Push code to github and create deployment similarly as q4, `
+4. Push code to github and create deployment similarly as q4, `prefect deployment build -n q5 -sb 'github/question-5' --apply homework_week2/q5_etl_web_to_gcs_green.py:q5_etl_web_to_gcs_green`
+
+5. Create Automation `q5-verify-completed` using the e-mail block created earlier. Configure to send email when completed. 
+
+6. Run deployment and confirm that e-mail is received.
+```
+Flow run q5-etl-web-to-gcs-green/accelerated-caiman entered state `Completed` at 2023-01-31T19:00:20.407362+00:00.
+```
+
+### Answer
+
+514392
+
+## Question 6. Secrets
+
+Prefect Secret blocks provide secure, encrypted storage in the database and obfuscation in the UI. Create a secret block in the UI that stores a fake 10-digit password to connect to a third-party service. Once you’ve created your block in the UI, how many characters are shown as asterisks (*) on the next page of the UI?
+
+### Answer
+
+8
