@@ -36,7 +36,7 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     path2 = os.getcwd()
     print("Files and directories in '", path2, "' :") 
     for root,d_names,f_names in os.walk(path2):
-        print root, d_names, f_names
+        print(root, d_names, f_names)
 
     # Get the list of all files and directories
     # in current working directory
