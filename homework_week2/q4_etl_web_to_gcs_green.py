@@ -3,6 +3,8 @@ import pandas as pd
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from random import randint
+import os
+
 
 
 @task(retries=3)
@@ -30,6 +32,18 @@ def clean(df=pd.DataFrame) -> pd.DataFrame:
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
     path = Path(f"data/{color}/{dataset_file}.parquet")#.parent.joinpath(f"data/{color}/{dataset_file}.parquet")
+    # Get the path of current working directory
+    path2 = os.getcwd()
+
+    # Get the list of all files and directories
+    # in current working directory
+    dir_list = os.listdir(path2)
+
+  
+    print("Files and directories in '", path2, "' :") 
+    # print the list
+    print(dir_list)
+    
     print(path)
     df.to_parquet(path, compression="gzip")
     return path
