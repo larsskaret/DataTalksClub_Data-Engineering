@@ -2,7 +2,7 @@
 
 1. I use vscode on an ubuntu 22.04.1 computer.
 
-2. Activate conda `zoom` environment that I used when following prefect videos. `conda activate zoom`. It was created with `conda create -n zoom python=3.9`
+2. Activate conda `zoom` environment that I used when following prefect videos. `conda activate zoom`. It was created with `conda create -n zoom python=3.9`. Install packages in requirements.txt: `pip install -r requirements.txt`
 
 3. In a separate terminal, activate conda `zoom` environment Then start the Prefect Orion server: `prefect orion start`. (Assuming prefect is installed `pip install -U prefect`)
 
@@ -26,11 +26,9 @@ How many rows does that dataset have?
 
 ### Steps
 
-1. Copy the `etl_web_to_gcs.py` as `q1_etl_web_to_gcs_green.py`. Fix the datetime conversion to accomodate the different column names in green dataset. Change arguments according to quesiton. Change bucket name to `ny-rides-bucket-block`. Change flow name to `q1_etl_web_to_gcs_green` to distinguish it from `etl_web_to_gcs.py`. See the file for further details (some ).
+1. Copy the `etl_web_to_gcs.py` as `q1_etl_web_to_gcs_green.py`. Fix the datetime conversion to accomodate the different column names in green dataset. Change parameters according to quesiton. Change bucket name to `ny-rides-bucket-block`. Change flow name to `q1_etl_web_to_gcs_green` to distinguish it from `etl_web_to_gcs.py`. See the file for further details.
 
-2. Create folder ./data/green
-
-3. Ran the python script with `python q1_etl_web_to_gcs_green.py` 
+2. Create folder ./data/green adn run the script.
 
 ### Answer
 447770
