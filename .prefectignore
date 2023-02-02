@@ -1,6 +1,8 @@
 # prefect artifacts
 .prefectignore
 
+homework_week1
+
 # python artifacts
 __pycache__/
 *.py[cod]
