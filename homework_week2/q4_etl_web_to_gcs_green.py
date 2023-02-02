@@ -54,16 +54,6 @@ def write_gcs(path: Path) -> None:
 @flow()
 def q4_etl_web_to_gcs_green() -> None:
     """The main ETL function"""
-    # Testing
-    # get current directory
-    cpath = os.getcwd()
-    print("Current Directory", cpath)
- 
-    # prints parent directory
-    #print(os.path.abspath(os.path.join(cpath, os.pardir)))
-    for currentpath, folders, files in os.walk('.'):
-        print(currentpath, folders, files)
-        
     #Hardcoded for now
     color = "green"
     year = 2020
