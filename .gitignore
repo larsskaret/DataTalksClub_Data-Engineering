@@ -9,7 +9,9 @@ week1_basics_n_setup
 #week1_basics_n_setup/data_pgadmin
 week2_workflow_orchestration
 #week2_workflow_orchestration/data
-
+week3_data_warehouse
 #homework_week2/README.md
 *.pyc
 */__pycache__
+
+*/.ipynb_checkpoints

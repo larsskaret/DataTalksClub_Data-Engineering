@@ -2,9 +2,6 @@ from pathlib import Path
 import pandas as pd
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
-from random import randint
-import os
-
 
 
 @task(retries=3)
@@ -31,16 +28,13 @@ def clean(df=pd.DataFrame) -> pd.DataFrame:
 @task(log_prints=True)
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f"data/{color}")
-    #Quick fix, since it complains about missing path when run in temp,
+    # Quick fix, since it complains about missing path when run in temp,
     # after being fetched from github
-    if not os.path.exists(path):
-        os.makedirs(path)
-
     path = Path(f"data/{color}/{dataset_file}.parquet")
+    if not path.parent.is_dir():
+        path.parent.mkdir(parents=True)
     df.to_parquet(path, compression="gzip")
     return path
-
 
 @task()
 def write_gcs(path: Path) -> None:
@@ -48,13 +42,12 @@ def write_gcs(path: Path) -> None:
     gcs_block = GcsBucket.load("ny-rides-bucket-block")
     gcs_block.upload_from_path(from_path=path, to_path=path)
     return
- 
 
 
 @flow()
 def q4_etl_web_to_gcs_green() -> None:
     """The main ETL function"""
-    #Hardcoded for now
+    # Hardcoded for now
     color = "green"
     year = 2020
     month = 11
