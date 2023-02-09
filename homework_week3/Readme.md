@@ -4,6 +4,8 @@
 
  Keeping it simple, using wget to download and then upload with the existing GCS Bucket block.
 
+`hw3_prep_el_web_to_gcs.py`
+
  BigQuery SQL commands for creating the tables:
  ```sql
 --External table
@@ -101,7 +103,7 @@ GCP Bucket
 It is best practice in Big Query to always cluster your data
 
 ### Answer
-False (example less than 1 GB size, can be worse due to metadata)
+False (example less than 1 GB size, can be worse than not clustering due to metadata)
 
 ## Question 8
 A better format to store these files may be parquet. Create a data pipeline to download the gzip files and convert them into parquet. Upload the files to your GCP Bucket and create an External and BQ Table.
@@ -111,8 +113,8 @@ Note: Column types for all files used in an External Table must have the same da
 ### Answer
 I wanted to try out pandas for handling both the typecasting and the uploading. 
 
-When inspecting the data, I think what you want to look for is nan-values (null) and object dtypes. Null values and int (or numpy int64) does not work well together, but pandas Int64 dtype does this. *The problem* originated from some files having columns with null values and integers -> float and some files having same columns with all numbers -> int. This cause problems when acting on these columns in BigQuery.
+When inspecting the data, I think what you want to look for is nan-values (null) and object dtypes. Null values and int (or numpy int64) does not work well together, but pandas Int64 dtype can handle null values. *The problem* originated from some files having columns with null values and integers -> float and some files having same columns with all integers -> int. This cause problems when acting on these columns in BigQuery.
 
-One column also had one or more files with only null values -> object, and then some with numbers. Carefull inspection on the tables we already created in BigQuery (vased on CSV files) confirmed that this also was null values and integers.
+One column also had one or more files with only null values -> object, and then some with numbers. Carefull inspection of the tables I already created in BigQuery for this homework (based on CSV files) confirmed that the distinct values were null values and integers.
 
 My *experimental* pipeline is `q8_web_to_gcs.py`
