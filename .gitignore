@@ -10,8 +10,15 @@ week1_basics_n_setup
 week2_workflow_orchestration
 #week2_workflow_orchestration/data
 week3_data_warehouse
+week4_analytics_engineering
+week7_project
 #homework_week2/README.md
 *.pyc
 */__pycache__
 
 */.ipynb_checkpoints
+
+
+homework_week4/dbt/target/
+homework_week4/dbt/dbt_packages/
+homework_week4/dbt/logs/
