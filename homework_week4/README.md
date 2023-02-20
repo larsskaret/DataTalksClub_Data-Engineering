@@ -12,6 +12,8 @@ If you don't have access to GCP, you can do this locally using the ingested data
 instead. If you have access to GCP, you don't need to do it for local Postgres -
 only if you want to.
 
+> **Note**: if your answer doesn't match exactly, select the closest option
+
 ### Question 1: 
 
 **What is the count of records in the model fact_trips after running all models with the test run variable disabled and filtering for 2019 and 2020 data only (pickup datetime)** 
@@ -27,13 +29,6 @@ To get a consistent row count between runs i added an `order by` with some arbit
 SELECT COUNT(1) FROM `mythic-plexus-375706.production.fact_trips`
 WHERE DATE(pickup_datetime) BETWEEN '2019-01-01' AND '2020-12-31';
 ```
-Answer is not among options due to the way the example deduplicated records.
-
-- 61635151
-- 61635418
-- 61666551
-- 41856543
-
 
 ### Question 2: 
 
@@ -46,11 +41,6 @@ You will need to complete "Visualising the data" videos, either using data studi
 ![distribution](q2.png)
 
 89.9/10.1
-
-
-
-
-### Question 3: 
 
 **What is the count of records in the model stg_fhv_tripdata after running all models with the test run variable disabled (:false)**  
 
@@ -67,14 +57,6 @@ stg_fhv_2019_data.sql
 SELECT COUNT(1) FROM `mythic-plexus-375706.production.stg_fhv_2019_data`
 WHERE DATE(pickup_datetime) BETWEEN '2019-01-01' AND '2019-12-31';
 ```
-
-Answer is not among options because the fhv files have increased in size since 2022.
-
-- 4208599
-- 44384899
-- 57084899
-- 42084899
-
 
 ### Question 4: 
 
@@ -94,12 +76,6 @@ fact_fhv_trips.sql
 SELECT COUNT(1) FROM `mythic-plexus-375706.production.fact_fhv_trips`
 WHERE DATE(pickup_datetime) BETWEEN '2019-01-01' AND '2019-12-31';
 ```
-Answer is not among options because the fhv files have increased in size since 2022.
-
-- 22676490
-- 36678853
-- 22676253
-- 29565253
 
 ### Question 5: 
 
@@ -115,17 +91,3 @@ January
 - April
 - January
 - December
-
-
-
-## Submitting the solutions
-
-* Form for submitting: https://forms.gle/6A94GPutZJTuT5Y16
-* You can submit your homework multiple times. In this case, only the last submission will be used. 
-
-Deadline: 21 February (Tuesday), 22:00 CET
-
-
-## Solution
-
-We will publish the solution here
