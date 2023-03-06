@@ -1,6 +1,6 @@
 ## Week 4 Homework 
 
-In this homework, we'll use the models developed during the week 4 videos and enhance the already presented dbt project using the already loaded Taxi data for fhv vehicles for year 2019 in our DWH.
+In this homework, we'll use the models developed during the week 5 videos and enhance the already presented dbt project using the already loaded Taxi data for fhv vehicles for year 2019 in our DWH.
 
 We will use the data loaded for:
 
@@ -14,7 +14,7 @@ only if you want to.
 
 > **Note**: if your answer doesn't match exactly, select the closest option
 
-### Question 1: 
+### Question 1:
 
 **What is the count of records in the model fact_trips after running all models with the test run variable disabled and filtering for 2019 and 2020 data only (pickup datetime)** 
 
@@ -42,6 +42,8 @@ You will need to complete "Visualising the data" videos, either using data studi
 
 89.9/10.1
 
+### Question 3:
+
 **What is the count of records in the model stg_fhv_tripdata after running all models with the test run variable disabled (:false)**  
 
 Create a staging model for the fhv data for 2019 and do not add a deduplication step. Run it via the CLI without limits (is_test_run: false).
@@ -58,7 +60,7 @@ SELECT COUNT(1) FROM `mythic-plexus-375706.production.stg_fhv_2019_data`
 WHERE DATE(pickup_datetime) BETWEEN '2019-01-01' AND '2019-12-31';
 ```
 
-### Question 4: 
+### Question 4:
 
 **What is the count of records in the model fact_fhv_trips after running all dependencies with the test run variable disabled (:false)**  
 
@@ -83,7 +85,7 @@ WHERE DATE(pickup_datetime) BETWEEN '2019-01-01' AND '2019-12-31';
 Create a dashboard with some tiles that you find interesting to explore the data. One tile should show the amount of trips per month, as done in the videos for fact_trips, based on the fact_fhv_trips table.
 
 ### Answer
-January
+January, see looker studio [here](https://lookerstudio.google.com/s/pvC8k9BhuYw) (Link will expire during spring 2023.)
 
 ![distribution2](q5.png)
 
