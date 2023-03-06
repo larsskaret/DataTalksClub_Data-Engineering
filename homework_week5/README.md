@@ -17,10 +17,9 @@ For this homework we will be using the FHVHV 2021-06 data found here. [FHVHV Dat
 
 **Answer**
 
-Installed spark and pyspark on local machine (ubunut) according to instructions [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/linux.md) and [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/pyspark.md)
+Installed spark and pyspark on local machine (ubuntu) according to instructions [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/linux.md) and [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/pyspark.md)
 
-To open pyspark (not spark), one way is to go to spark installation folder and run `bin/pyspark`
-
+To run pyspark, one way is to go to spark installation folder and run `bin/pyspark`. Another way, shown in the file `w5_hw.ipynb`, imports the pyspark library and creates a session using `SparkSession` from `pyspark.sql`.
 
 ```
 >>> spark.version
@@ -39,7 +38,8 @@ Repartition it to 12 partitions and save it to parquet.</br>
 What is the average size of the Parquet (ending with .parquet extension) Files that were created (in MB)? Select the answer which most closely matches.</br>
 
 **Answer**
-Started a jupyter notebook named `w5_hw.ipynb` it contains the code for all week 5 tasks.
+
+See `w5_hw.ipynb` for code
 
 24 MB
 
@@ -101,18 +101,3 @@ See `w5_hw.ipynb` for code
 
 Crown Heights North
 </br></br>
-
-
-
-
-## Submitting the solutions
-
-* Form for submitting: https://forms.gle/EcSvDs6vp64gcGuD8
-* You can submit your homework multiple times. In this case, only the last submission will be used. 
-
-Deadline: 06 March (Monday), 22:00 CET
-
-
-## Solution
-
-We will publish the solution here
