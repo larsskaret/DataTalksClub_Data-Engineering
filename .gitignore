@@ -12,6 +12,7 @@ week2_workflow_orchestration
 week3_data_warehouse
 week4_analytics_engineering
 week5_batch_processing
+week6_stream_processing/python
 week7_project
 #homework_week2/README.md
 *.pyc
