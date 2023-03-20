@@ -139,6 +139,8 @@ WORK IN PROGRES
 
 Follow the setup (requirements, docker, kafka, spark) in this [link](https://github.com/larsskaret/data-engineering-zoomcamp/tree/main/week_6_stream_processing/python/docker)
 
+Make sure to change spark version in build.sh to 3.3.2
+
 ### Running Streaming Script
 
 spark-submit script ensures installation of necessary jars before running the streaming.py

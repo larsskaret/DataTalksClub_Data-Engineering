@@ -1,8 +1,8 @@
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
+from pyspark.sql.functions import lit
 
-from settings import RIDE_SCHEMA, CONSUME_TOPIC_RIDES_CSV_GREEN, \
-     TOPIC_WINDOWED_VENDOR_ID_COUNT, CONSUME_TOPIC_RIDES_CSV_FHV
+from settings import RIDE_SCHEMA, CONSUME_TOPIC_RIDES_CSV_GREEN, CONSUME_TOPIC_RIDES_CSV_FHV, RESULT_TOPIC
 
 
 def read_from_kafka(consume_topic: str):
@@ -66,11 +66,12 @@ def sink_kafka(df, topic):
 
 
 def prepare_df_to_kafka_sink(df, value_columns, key_column=None):
-    columns = df.columns
-
     df = df.withColumn("value", F.concat_ws(', ', *value_columns))
     if key_column:
         df = df.withColumnRenamed(key_column, "key")
+        df = df.withColumn("key", df.key.cast('string'))
+    else:
+        df = df.withColumn("key", lit('1'))
         df = df.withColumn("key", df.key.cast('string'))
     return df.select(['key', 'value'])
 
@@ -79,38 +80,39 @@ def op_groupby(df, column_names):
     df_aggregation = df.groupBy(column_names).count()
     return df_aggregation
 
-
-def op_windowed_groupby(df, window_duration, slide_duration):
-    df_windowed_aggregation = df.groupBy(
-        F.window(timeColumn=df.tpep_pickup_datetime, windowDuration=window_duration, slideDuration=slide_duration),
-        df.vendor_id
-    ).count()
-    return df_windowed_aggregation
-
-
-if __name__ == "__main__":
-    spark = SparkSession.builder.appName('streaming-examples').getOrCreate()
-    spark.sparkContext.setLogLevel('WARN')
-
+def chuck(var_consume_topic):
     # read_streaming data
-    df_consume_stream = read_from_kafka(consume_topic=CONSUME_TOPIC_RIDES_CSV_GREEN)
-    print(df_consume_stream.printSchema())
+    df_consume_stream = read_from_kafka(consume_topic=var_consume_topic) #CONSUME_TOPIC_RIDES_CSV_GREEN)
+    #print(df_consume_stream.printSchema())
 
     # parse streaming data
     df_rides = parse_ride_from_kafka_message(df_consume_stream, RIDE_SCHEMA)
-    print(df_rides.printSchema())
+    #print(df_rides.printSchema())
+    #sink_console(df_rides, output_mode='append')
 
-    sink_console(df_rides, output_mode='append')
-
-    df_trip_count_by_PULocationID = op_groupby(df_rides, ['PULocationID'])
-    #df_trip_count_by_pickup_date_vendor_id = op_windowed_groupby(df_rides, window_duration="10 minutes",
-    #                                                             slide_duration='5 minutes')
-
-    # write the output out to the console for debugging / testing
-    #sink_console(df_trip_count_by_vendor_id)
     # write the output to the kafka topic
-    #df_trip_count_messages = prepare_df_to_kafka_sink(df=df_trip_count_by_pickup_date_vendor_id,
-    #                                                  value_columns=['count'], key_column='vendor_id')
-    #kafka_sink_query = sink_kafka(df=df_trip_count_messages, topic=TOPIC_WINDOWED_VENDOR_ID_COUNT)
+    df_trip_not_sure = prepare_df_to_kafka_sink(df=df_rides, value_columns=['PULocationID'])
+    sink_console(df_trip_not_sure, output_mode='append')
+    #fails:
+    kafka_sink_query = sink_kafka(df=df_trip_not_sure, topic=RESULT_TOPIC)
+
+
+if __name__ == "__main__":
+
+    spark = SparkSession.builder.appName('streaming-examples').getOrCreate()
+    spark.sparkContext.setLogLevel('WARN')
+
+    chuck(CONSUME_TOPIC_RIDES_CSV_GREEN)
+    chuck(CONSUME_TOPIC_RIDES_CSV_FHV)
+
+
+
+    df_consume_stream = read_from_kafka(consume_topic=RESULT_TOPIC) #CONSUME_TOPIC_RIDES_CSV_GREEN)
+    # parse streaming data
+    df_rides = parse_ride_from_kafka_message(df_consume_stream, RIDE_SCHEMA)
+    df_trip_count_by_PULocationID = op_groupby(df_rides, ['PULocationID'])
+
+    # write the output out to the console
+    sink_console(df_trip_count_by_PULocationID)
 
     spark.streams.awaitAnyTermination()

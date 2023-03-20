@@ -3,7 +3,7 @@ from typing import Dict, List
 from kafka import KafkaConsumer
 
 from settings import BOOTSTRAP_SERVERS, CONSUME_TOPIC_RIDES_CSV_GREEN, \
-    CONSUME_TOPIC_RIDES_CSV_FHV
+    CONSUME_TOPIC_RIDES_CSV_FHV, RESULT_TOPIC
 
 
 class RideCSVConsumer:
@@ -32,10 +32,13 @@ class RideCSVConsumer:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Kafka Consumer')
-    parser.add_argument('--topic', type=str, default=CONSUME_TOPIC_RIDES_CSV_GREEN)
+
+    parser.add_argument('--topic', type=List[str], default=[CONSUME_TOPIC_RIDES_CSV_GREEN, CONSUME_TOPIC_RIDES_CSV_FHV, RESULT_TOPIC])
+
     args = parser.parse_args()
 
     topic = args.topic
+
     config = {
         'bootstrap_servers': [BOOTSTRAP_SERVERS],
         'auto_offset_reset': 'earliest',
@@ -44,5 +47,7 @@ if __name__ == '__main__':
         'value_deserializer': lambda value: value.decode('utf-8'),
         'group_id': 'consumer.group.id.csv-example.1',
     }
+
+
     csv_consumer = RideCSVConsumer(props=config)
-    csv_consumer.consume_from_kafka(topics=[topic])
+    csv_consumer.consume_from_kafka(topics=topic)

@@ -28,14 +28,14 @@ class GreenRideCSVProducer:
             header = next(reader)  # skip the header
             for row in reader:
                 # vendor_id, passenger_count, trip_distance, payment_type, total_amount
-                records.append(f'{row[5]}, {row[6]}')
+                records.append(f'{row[5]}')
                 ride_keys.append('1')
                 i += 1
                 if i == 10:
                     break
         return zip(ride_keys, records)
 
-    def publish(self, topic: str, records: [str, str]):
+    def publish(self, topic: str, records: [str]):
         for key_value in records:
             key, value = key_value
             try:
@@ -64,14 +64,14 @@ class FhvRideCSVProducer:
             header = next(reader)  # skip the header
             for row in reader:
                 # vendor_id, passenger_count, trip_distance, payment_type, total_amount
-                records.append(f'{row[3]}, {row[4]}')
+                records.append(f'{row[3]}')
                 ride_keys.append('1')
                 i += 1
                 if i == 10:
                     break
         return zip(ride_keys, records)
 
-    def publish(self, topic: str, records: [str, str]):
+    def publish(self, topic: str, records: [str]):
         for key_value in records:
             key, value = key_value
             try:
@@ -102,6 +102,7 @@ if __name__ == "__main__":
 
     #FHV
     fhv_producer = FhvRideCSVProducer(props=config)
+
     ride_records = fhv_producer.read_records(resource_path=FHV_INPUT_DATA_PATH)
     print(ride_records)
     fhv_producer.publish(topic=PRODUCE_TOPIC_RIDES_CSV_FHV, records=ride_records)
