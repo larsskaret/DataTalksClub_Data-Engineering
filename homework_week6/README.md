@@ -135,7 +135,6 @@ Your code should include following
    and writes both of them in topic rides_all and apply aggregations to find most popular pickup location.
 
 ### Answer
-WORK IN PROGRES
 
 Follow the setup (requirements, docker, kafka, spark) in this [link](https://github.com/larsskaret/data-engineering-zoomcamp/tree/main/week_6_stream_processing/python/docker)
 
@@ -144,7 +143,12 @@ Make sure to change spark version in build.sh to 3.3.2
 ### Running Streaming Script
 
 spark-submit script ensures installation of necessary jars before running the streaming.py
+```bash
+python3 producer.py
+```
 
 ```bash
 ./spark-submit.sh streaming.py 
 ```
+
+Current problem: streaming.py will not write to topic rides_all
